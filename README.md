@@ -17,8 +17,8 @@ If you want to be a tester and help test games, ask us for write access on our D
   * Tech Support:
     * `How do I do/fix X?`
     * `How do I get games?`
-    * `Why won't Vita3K start?`
-    * `Why is Vita3K running slow/low FPS?` etc.
+    * `Why won't aPS3e start?`
+    * `Why is aPS3e running slow/low FPS?` etc.
   * Begging:
     * `Please fix this/get it working/etc!`
     * `When/how will this be fixed?`
@@ -32,7 +32,7 @@ If you can't find the game issue you want to report, please create a new one.
 
 The following checks are performed by the bot, and those that do not meet will be automatically closed:
 
-- The issue title must be in the format `Game title [Title ID]` (e.g. `Persona 4 Golden [PCSE00120]`).
+- The issue title must be in the format `Game title [Title ID]` (e.g. `God of war 3 [PCSE00120]`).
 
 - The issue must have a following status label `Nothing, Bootable, Intro, Menu, Ingame -, Ingame +, Playable`.
 
