@@ -1,6 +1,6 @@
 # compatibility
 
-#### [Commercial game compatibility database for Vita3K.](https://github.com/Vita3K/compatibility/issues)
+#### [Commercial game compatibility database for aPS3e.]()
 
 ---
 
@@ -9,7 +9,7 @@ The [Compatibility web page](https://rorgu.github.io/aps3e-compatibility/) fetch
 If you want to be a tester and help test games, ask us for write access on our Discord server.
 
 > [!NOTE]
-> This repository does **not** guarantee compatibility and is not intended for Android. Submit Android specific issues [here](https://github.com/Rorgu/aps3e-compatibility/issues).
+> This repository does **not** guarantee compatibility and is not intended for Android. Submit Android specific issues [here]().
 
 ### What NOT to post:
 
