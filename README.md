@@ -34,8 +34,6 @@ The following checks are performed by the bot, and those that do not meet will b
 
 - The issue title must be in the format `Game title [Title ID]` (e.g. `Persona 4 Golden [PCSE00120]`).
 
-- commit hash must like this: `Commit hash: https://github.com/vita3k/vita3k/commit/abcd1234` Don't forget to delete `[` and `]`.
-
 - The issue must have a following status label `Nothing, Bootable, Intro, Menu, Ingame -, Ingame +, Playable`.
 
 No checks by bots, but be sure to provide screenshots and logs.
