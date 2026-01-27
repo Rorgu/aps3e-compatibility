@@ -4,12 +4,12 @@
 
 ---
 
-The [Compatibility web page](https://vita3k.org/compatibility.html) fetches data from this repo.
+The [Compatibility web page](https://rorgu.github.io/aps3e-compatibility/) fetches data from this repo.
 
 If you want to be a tester and help test games, ask us for write access on our Discord server.
 
 > [!NOTE]
-> This repository does **not** guarantee compatibility and is not intended for Android. Submit Android specific issues [here](https://github.com/Vita3K/Vita3K-Android/issues).
+> This repository does **not** guarantee compatibility and is not intended for Android. Submit Android specific issues [here](https://github.com/Rorgu/aps3e-compatibility/issues).
 
 ### What NOT to post:
 
