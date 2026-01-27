@@ -3,161 +3,257 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>aPS3e Compatibility List</title>
+<title>aPS3e Compatibility</title>
+
 <style>
+:root {
+  --bg: #f6f6f6;
+  --card: #ffffff;
+  --border: #dcdcdc;
+  --text: #222;
+  --muted: #666;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #222;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
 }
+
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
+  background: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
 }
+
 .container {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
 }
-input[type="text"] {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    font-size: 1rem;
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
 }
+
+.stat {
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #eee;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filter-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-btn.active {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.search {
+  margin-bottom: 12px;
+}
+
+.search input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
 }
+
 th, td {
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    text-align: left;
+  padding: 8px;
+  border: 1px solid var(--border);
 }
+
 th {
-    cursor: pointer;
-    background-color: #eee;
+  background: #f0f0f0;
+  cursor: pointer;
 }
-th.sort-asc::after { content: " ▲"; }
-th.sort-desc::after { content: " ▼"; }
-.status-Nothing { background-color: #f44336; color: #fff; }
-.status-Intro { background-color: #ff9800; color: #fff; }
-.status-Menu { background-color: #2196f3; color: #fff; }
-.status-Ingame { background-color: #ffeb3b; color: #000; }
-.status-Playable { background-color: #4caf50; color: #fff; }
-.status-Stable { background-color: #009688; color: #fff; }
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.Nothing { background: #d32f2f; }
+.Intro { background: #f57c00; }
+.Menu { background: #1976d2; }
+.Ingame { background: #fbc02d; color:#000; }
+.Playable { background: #388e3c; }
+.Stable { background: #00796b; }
+
+a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>aPS3e Compatibility List</h1>
-<p>Interactive compatibility list for Android PS3 emulator (aPS3e)</p>
+  <h1>aPS3e Compatibility List</h1>
+  <p>PS3 Emulator for Android</p>
 </header>
+
 <div class="container">
-<input type="text" id="searchInput" placeholder="Search by game name...">
+
+<div class="stats" id="stats"></div>
+
+<div class="filters">
+  <button class="filter-btn active" data-status="All">All</button>
+  <button class="filter-btn" data-status="Playable">Playable</button>
+  <button class="filter-btn" data-status="Ingame">Ingame</button>
+  <button class="filter-btn" data-status="Intro">Intro</button>
+  <button class="filter-btn" data-status="Menu">Menu</button>
+  <button class="filter-btn" data-status="Nothing">Nothing</button>
+</div>
+
+<div class="search">
+  <input type="text" id="searchInput" placeholder="Search game...">
+</div>
+
 <table id="compatTable">
 <thead>
 <tr>
-<th onclick="sortTable(0)">Game</th>
-<th onclick="sortTable(1)">Status</th>
-<th>Notes</th>
+  <th onclick="sortTable(0)">Game</th>
+  <th onclick="sortTable(1)">Status</th>
+  <th>Notes</th>
 </tr>
 </thead>
 <tbody>
+
 <tr>
 <td>Terraria</td>
-<td class="status-Playable">Playable</td>
-<td>Smooth ~30–60 FPS, minor graphical glitches</td>
+<td><span class="status Playable">Playable</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Terraria" target="_blank">Report / Details</a></td>
 </tr>
+
 <tr>
 <td>Limbo</td>
-<td class="status-Playable">Playable</td>
-<td>Stable ~30 FPS, occasional sound issues</td>
+<td><span class="status Playable">Playable</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Limbo" target="_blank">Report / Details</a></td>
 </tr>
+
 <tr>
 <td>Rayman Origins</td>
-<td class="status-Ingame">In‑game</td>
-<td>~25–40 FPS, minor stutters</td>
+<td><span class="status Ingame">Ingame</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Rayman%20Origins" target="_blank">Report / Details</a></td>
 </tr>
+
 <tr>
 <td>Castle Crashers</td>
-<td class="status-Ingame">In‑game</td>
-<td>Frequent crashes on level change, save issues</td>
+<td><span class="status Ingame">Ingame</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Castle%20Crashers" target="_blank">Report / Details</a></td>
 </tr>
+
 <tr>
-<td>Flower (PSN)</td>
-<td class="status-Intro">Intro</td>
-<td>Starts, but severe FPS issues</td>
+<td>Flower</td>
+<td><span class="status Intro">Intro</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Flower" target="_blank">Report / Details</a></td>
 </tr>
-<tr>
-<td>PES 2018</td>
-<td class="status-Ingame">In‑game</td>
-<td>Launch reported, stability unknown</td>
-</tr>
-<tr>
-<td>NBA 2K14</td>
-<td class="status-Ingame">In‑game</td>
-<td>Launches, quality unknown</td>
-</tr>
-<tr>
-<td>Ridge Racer Unbounded</td>
-<td class="status-Ingame">In‑game</td>
-<td>Launch possible, details unknown</td>
-</tr>
-<tr>
-<td>Dante’s Inferno</td>
-<td class="status-Playable">Playable</td>
-<td>~30 FPS on some devices, sound stutters</td>
-</tr>
+
 </tbody>
 </table>
+
 </div>
 
 <script>
-// Search
-document.getElementById('searchInput').addEventListener('keyup', function() {
-    const filter = this.value.toLowerCase().trim();
-    const rows = document.querySelectorAll('#compatTable tbody tr');
-    rows.forEach(row => {
-        const game = row.cells[0].textContent.toLowerCase().trim();
-        row.style.display = game.includes(filter) ? '' : 'none';
-    });
+const searchInput = document.getElementById("searchInput");
+const rows = document.querySelectorAll("#compatTable tbody tr");
+
+searchInput.addEventListener("keyup", () => {
+  const v = searchInput.value.toLowerCase();
+  rows.forEach(r => {
+    r.style.display = r.cells[0].innerText.toLowerCase().includes(v) ? "" : "none";
+  });
 });
 
-// Sorting
-function sortTable(n) {
-    const table = document.getElementById("compatTable");
-    let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    switching = true; dir = "asc";
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-        for (i = 1; i < rows.length - 1; i++) {
-            shouldSwitch = false;
-            x = rows[i].cells[n].textContent.toLowerCase().trim();
-            y = rows[i + 1].cells[n].textContent.toLowerCase().trim();
-            if ((dir === "asc" && x > y) || (dir === "desc" && x < y)) {
-                shouldSwitch = true; break;
-            }
-        }
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true; switchcount++;
-        } else if (switchcount === 0 && dir === "asc") {
-            dir = "desc"; switching = true;
-        }
-    }
-    const ths = table.querySelectorAll('th');
-    ths.forEach(th => th.classList.remove('sort-asc','sort-desc'));
-    ths[n].classList.add(dir === 'asc' ? 'sort-asc' : 'sort-desc');
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelector(".filter-btn.active").classList.remove("active");
+    btn.classList.add("active");
+    const status = btn.dataset.status;
+    rows.forEach(r => {
+      const s = r.cells[1].innerText.trim();
+      r.style.display = (status === "All" || s === status) ? "" : "none";
+    });
+  };
+});
+
+function updateStats() {
+  const stats = {};
+  rows.forEach(r => {
+    const s = r.cells[1].innerText.trim();
+    stats[s] = (stats[s] || 0) + 1;
+  });
+  let html = "";
+  Object.keys(stats).forEach(k => {
+    html += `<div class="stat">${k}: ${stats[k]}</div>`;
+  });
+  html += `<div class="stat">Total: ${rows.length}</div>`;
+  document.getElementById("stats").innerHTML = html;
 }
+
+function sortTable(n) {
+  const table = document.getElementById("compatTable");
+  let switching = true, dir = "asc";
+  while (switching) {
+    switching = false;
+    const r = table.rows;
+    for (let i = 1; i < r.length - 1; i++) {
+      let x = r[i].cells[n].innerText.toLowerCase();
+      let y = r[i + 1].cells[n].innerText.toLowerCase();
+      if ((dir === "asc" && x > y) || (dir === "desc" && x < y)) {
+        r[i].parentNode.insertBefore(r[i + 1], r[i]);
+        switching = true;
+        break;
+      }
+    }
+    if (!switching && dir === "asc") {
+      dir = "desc";
+      switching = true;
+    }
+  }
+}
+
+updateStats();
 </script>
+
 </body>
-    </html>
+</html>
