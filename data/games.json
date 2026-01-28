@@ -1,13 +1,13 @@
 {
   "lastUpdated": "27.01.2026, 17:34:20",
   "tags": [
-    {"name": "Nothing", "percent": "2.31%", "description": "Games that don't boot at all, not displaying an initial black screen with a FPS counter."},
-    {"name": "Bootable", "percent": "3.10%", "description": "Games that boot but display nothing more than a black screen with a FPS counter."},
-    {"name": "Intro", "percent": "5.94%", "description": "Games that display any image on screen but doesn't reach to menus."},
-    {"name": "Menu", "percent": "5.64%", "description": "Games that get into menu but can't enter Ingame."},
-    {"name": "Ingame -", "percent": "10.50%", "description": "Games that go ingame but have major issues that prevents it from going further early on."},
-    {"name": "Ingame +", "percent": "15.05%", "description": "Games that go far ingame but have glitches that render the game unplayable or have non-playable performance."},
-    {"name": "Playable", "percent": "57.46%", "description": "Games that can be played from start to finish with playable performance and no game breaking glitches."}
+    {"name": "Nothing", "description": "Games that don't boot at all, not displaying an initial black screen with a FPS counter."},
+    {"name": "Bootable", "description": "Games that boot but display nothing more than a black screen with a FPS counter."},
+    {"name": "Intro", "description": "Games that display any image on screen but doesn't reach to menus."},
+    {"name": "Menu", "description": "Games that get into menu but can't enter Ingame."},
+    {"name": "Ingame -", "description": "Games that go ingame but have major issues that prevents it from going further early on."},
+    {"name": "Ingame +", "description": "Games that go far ingame but have glitches that render the game unplayable or have non-playable performance."},
+    {"name": "Playable", "description": "Games that can be played from start to finish with playable performance and no game breaking glitches."}
   ],
   "games": [
     {"id": "BCUS98111", "name": "God of War III", "status": "Playable"},
