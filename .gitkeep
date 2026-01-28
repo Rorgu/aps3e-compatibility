@@ -1,0 +1,4 @@
+mkdir assets
+touch assets/.gitkeep
+git add assets/.gitkeep
+git commit -m "Add assets directory"
