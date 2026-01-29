@@ -3,101 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APS3E Compatibility List</title>
+<title>APS3E Compatibility</title>
+
+<!-- DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
 
 <style>
-:root {
-  --border:#ddd;
-  --bg:#f6f6f6;
-}
-
 body {
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto;
-  background:var(--bg);
-  color:#111;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+  background: #f4f4f4;
+  color: #111;
 }
 
 main {
-  max-width:1100px;
-  margin:auto;
-  padding:16px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px;
 }
 
 h1 {
-  margin:0 0 12px 0;
+  margin: 0 0 12px 0;
 }
 
 #stats {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:12px;
-  margin-bottom:20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .stat {
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:10px;
-  font-size:14px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
 }
 
-table {
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-  border:1px solid var(--border);
-}
-
-th,td {
-  padding:8px;
-  border-bottom:1px solid var(--border);
-  text-align:left;
-}
-
-th {
-  background:#eee;
+.stat strong {
+  cursor: pointer;
 }
 
 .status {
-  font-weight:600;
+  font-weight: 600;
 }
 
-.status.Nothing {color:#c0392b}
-.status.Bootable {color:#e67e22}
-.status.Intro {color:#2980b9}
-.status.Menu {color:#8e44ad}
-.status.Playable {color:#27ae60}
+.Nothing { color: #c0392b; }
+.Bootable { color: #e67e22; }
+.Intro { color: #2980b9; }
+.Menu { color: #8e44ad; }
+.IngameMinus { color: #f1c40f; }
+.IngamePlus { color: #f39c12; }
+.Playable { color: #27ae60; }
 
 #lastUpdated {
-  margin-top:12px;
-  font-size:13px;
-  color:#666;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #666;
 }
 
-@media (max-width:700px) {
-  table,thead,tbody,th,td,tr {
-    display:block;
+/* Mobile */
+@media (max-width: 700px) {
+  table.dataTable thead {
+    display: none;
   }
-  thead {display:none}
-  tr {
-    margin-bottom:12px;
-    border-bottom:1px solid var(--border);
-    padding:8px;
-  }
-  td {
-    border:none;
-    padding:4px 0;
-  }
-  td::before {
-    font-weight:600;
-    display:block;
-    color:#666;
-  }
-  td:nth-child(1)::before {content:"Title ID"}
-  td:nth-child(2)::before {content:"Entry Name"}
-  td:nth-child(3)::before {content:"Status"}
 }
 </style>
 </head>
@@ -109,7 +79,7 @@ th {
 
 <div id="stats"></div>
 
-<table id="compatTable">
+<table id="compat" class="display" style="width:100%">
 <thead>
 <tr>
   <th>Title ID</th>
@@ -118,77 +88,82 @@ th {
 </tr>
 </thead>
 <tbody>
-<tr>
-  <td>BCUS98111</td>
-  <td>God of War III</td>
-  <td class="status Playable">Playable</td>
-</tr>
-<tr>
-  <td>BCUS98130</td>
-  <td>Uncharted 2</td>
-  <td class="status Ingame -">Ingame -</td>
-</tr>
-<tr>
-  <td>BCUS98150</td>
-  <td>LittleBigPlanet</td>
-  <td class="status Menu">Menu</td>
-</tr>
-<tr>
-  <td>BCUS98160</td>
-  <td>Killzone 2</td>
-  <td class="status Intro">Intro</td>
-</tr>
-<tr>
-  <td>BCUS98170</td>
-  <td>MotorStorm</td>
-  <td class="status Nothing">Nothing</td>
-</tr>
+
+<tr><td>BCUS98111</td><td>God of War III</td><td>Playable</td></tr>
+<tr><td>BCUS98130</td><td>Uncharted 2</td><td>Ingame +</td></tr>
+<tr><td>BCUS98150</td><td>LittleBigPlanet</td><td>Menu</td></tr>
+<tr><td>BCUS98160</td><td>Killzone 2</td><td>Intro</td></tr>
+<tr><td>BCUS98170</td><td>MotorStorm</td><td>Nothing</td></tr>
+<tr><td>BCUS98180</td><td>Resistance</td><td>Bootable</td></tr>
+
 </tbody>
 </table>
 
-<p id="lastUpdated"></p>
+<div id="lastUpdated"></div>
 
 </main>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+
 <script>
 const statusInfo = {
-  "Nothing":"Games that don't boot at all, not displaying an initial black screen with a FPS counter.",
-  "Bootable":"Games that boot but display nothing more than a black screen with a FPS counter.",
-  "Intro":"Games that display any image on screen but doesn't reach to menus.",
-  "Menu":"Games that get into menu but can't enter Ingame.",
-  "Ingame -":"Games that go ingame but have major issues that prevents it from going further early on.",
-  "Ingame +":"Games that go far ingame but have glitches that render the game unplayable or have non-playable performance.",
-  "Playable":"Games that can be played from start to finish with playable performance and no game breaking glitches."
+  "Nothing": "Games that don't boot at all, not displaying an initial black screen with a FPS counter.",
+  "Bootable": "Games that boot but display nothing more than a black screen with a FPS counter.",
+  "Intro": "Games that display any image on screen but doesn't reach to menus.",
+  "Menu": "Games that get into menu but can't enter Ingame.",
+  "Ingame -": "Games that go ingame but have major issues that prevents it from going further early on.",
+  "Ingame +": "Games that go far ingame but have glitches that render the game unplayable or have non-playable performance.",
+  "Playable": "Games that can be played from start to finish with playable performance and no game breaking glitches."
 };
 
-function updateStats() {
-  const rows=document.querySelectorAll("#compatTable tbody tr");
-  const total=rows.length;
-  const counts={};
+$(document).ready(function () {
 
-  rows.forEach(r=>{
-    const s=r.cells[2].innerText.trim();
-    counts[s]=(counts[s]||0)+1;
+  const table = $("#compat").DataTable({
+    pageLength: 25,
+    order: [[2, "desc"]]
   });
 
-  let html="";
-  Object.keys(statusInfo).forEach(s=>{
-    if(!counts[s]) return;
-    const p=((counts[s]/total)*100).toFixed(2);
-    html+=`
+  // Colorize status column
+  $("#compat tbody tr").each(function () {
+    const cell = $(this).find("td").eq(2);
+    const status = cell.text().trim();
+    let cls = status.replace(" ", "").replace("-", "Minus").replace("+", "Plus");
+    cell.addClass("status " + cls);
+  });
+
+  // Build stats
+  const counts = {};
+  table.column(2).data().each(s => {
+    counts[s] = (counts[s] || 0) + 1;
+  });
+
+  const total = table.rows().count();
+  let statsHtml = "";
+
+  Object.keys(statusInfo).forEach(s => {
+    if (!counts[s]) return;
+    const percent = ((counts[s] / total) * 100).toFixed(2);
+    statsHtml += `
       <div class="stat">
-        <strong>${s}</strong> (${p}% · ${counts[s]}/${total})<br>
+        <strong onclick="filterStatus('${s}')">${s}</strong>
+        (${percent}% · ${counts[s]}/${total})<br>
         <span style="color:#666">${statusInfo[s]}</span>
-      </div>`;
+      </div>
+    `;
   });
 
-  document.getElementById("stats").innerHTML=html;
-}
+  $("#stats").html(statsHtml);
 
-updateStats();
+  window.filterStatus = function (status) {
+    table.column(2).search(status).draw();
+  };
 
-document.getElementById("lastUpdated").innerText =
-  "Last Updated at: " + new Date().toLocaleString();
+  $("#lastUpdated").text(
+    "Last Updated at: " + new Date().toLocaleString()
+  );
+
+});
 </script>
 
 </body>
