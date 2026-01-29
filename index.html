@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aPS3e Compatibility</title>
+
+<style>
+:root {
+  --bg: #f6f6f6;
+  --card: #ffffff;
+  --border: #dcdcdc;
+  --text: #222;
+  --muted: #666;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  background: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.stat {
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #eee;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.filter-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-btn.active {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.search {
+  margin-bottom: 12px;
+}
+
+.search input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid var(--border);
+}
+
+th {
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.Nothing { background: #d32f2f; }
+.Intro { background: #f57c00; }
+.Menu { background: #1976d2; }
+.Ingame { background: #fbc02d; color:#000; }
+.Playable { background: #388e3c; }
+.Stable { background: #00796b; }
+
+a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>aPS3e Compatibility List</h1>
+  <p>PS3 Emulator for Android</p>
+</header>
+
+<div class="container">
+
+<div class="stats" id="stats"></div>
+
+<div class="filters">
+  <button class="filter-btn active" data-status="All">All</button>
+  <button class="filter-btn" data-status="Playable">Playable</button>
+  <button class="filter-btn" data-status="Playable">ingame+</button>
+  <button class="filter-btn" data-status="Ingame">Ingame</button>
+  <button class="filter-btn" data-status="Intro">Intro</button>
+  <button class="filter-btn" data-status="Menu">Menu</button>
+  <button class="filter-btn" data-status="Nothing">Nothing</button>
+</div>
+
+<div class="search">
+  <input type="text" id="searchInput" placeholder="Search game...">
+</div>
+
+<table id="compatTable">
+<thead>
+<tr>
+  <th onclick="sortTable(0)">Game</th>
+  <th onclick="sortTable(1)">Status</th>
+  <th>Notes</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+<td>God of war 3</td>
+<td><span class="status ingame+">ingame+</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/2" target="_blank">Details</a></td>
+</tr>
+
+<tr>
+<td>Limbo</td>
+<td><span class="status Playable">Playable</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Limbo" target="_blank">Report / Details</a></td>
+</tr>
+
+<tr>
+<td>Rayman Origins</td>
+<td><span class="status Ingame">Ingame</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Rayman%20Origins" target="_blank">Report / Details</a></td>
+</tr>
+
+<tr>
+<td>Castle Crashers</td>
+<td><span class="status Ingame">Ingame</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Castle%20Crashers" target="_blank">Report / Details</a></td>
+</tr>
+
+<tr>
+<td>Flower</td>
+<td><span class="status Intro">Intro</span></td>
+<td><a href="https://github.com/Rorgu/aps3e-compatibility/issues/new?title=Flower" target="_blank">Report / Details</a></td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const rows = document.querySelectorAll("#compatTable tbody tr");
+
+searchInput.addEventListener("keyup", () => {
+  const v = searchInput.value.toLowerCase();
+  rows.forEach(r => {
+    r.style.display = r.cells[0].innerText.toLowerCase().includes(v) ? "" : "none";
+  });
+});
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelector(".filter-btn.active").classList.remove("active");
+    btn.classList.add("active");
+    const status = btn.dataset.status;
+    rows.forEach(r => {
+      const s = r.cells[1].innerText.trim();
+      r.style.display = (status === "All" || s === status) ? "" : "none";
+    });
+  };
+});
+
+function updateStats() {
+  const stats = {};
+  rows.forEach(r => {
+    const s = r.cells[1].innerText.trim();
+    stats[s] = (stats[s] || 0) + 1;
+  });
+  let html = "";
+  Object.keys(stats).forEach(k => {
+    html += `<div class="stat">${k}: ${stats[k]}</div>`;
+  });
+  html += `<div class="stat">Total: ${rows.length}</div>`;
+  document.getElementById("stats").innerHTML = html;
+}
+
+function sortTable(n) {
+  const table = document.getElementById("compatTable");
+  let switching = true, dir = "asc";
+  while (switching) {
+    switching = false;
+    const r = table.rows;
+    for (let i = 1; i < r.length - 1; i++) {
+      let x = r[i].cells[n].innerText.toLowerCase();
+      let y = r[i + 1].cells[n].innerText.toLowerCase();
+      if ((dir === "asc" && x > y) || (dir === "desc" && x < y)) {
+        r[i].parentNode.insertBefore(r[i + 1], r[i]);
+        switching = true;
+        break;
+      }
+    }
+    if (!switching && dir === "asc") {
+      dir = "desc";
+      switching = true;
+    }
+  }
+}
+
+updateStats();
+</script>
+
+</body>
+</html>
